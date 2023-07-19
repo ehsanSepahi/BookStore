@@ -43,3 +43,101 @@
 ۵. جلسات و مدیریت سبد خرید: با استفاده از جلسات در لاراول، اطلاعات سبد خرید کاربران ذخیره و مدیریت می‌شود.
 
 با بهره‌گیری از این قابلیت‌های لاراول، اپلیکیشن فروشگاه کتاب ما به کاربران امکان خرید و مدیریت کتاب‌ها را با راحتی و سهولت ارائه می‌دهد. علاوه بر این، با ادامه توسعه، ویژگی‌های جدید و بهبودی‌های بیشتری به این اپلیکیشن اضافه خواهیم کرد تا تجربه کاربران را بهبود بخشیم.
+
+## مراحل نصب
+
+لطفاً قبل از شروع، برای نیازهای سرور رسمی Laravel، راهنمای نصب رسمی Laravel را بررسی کنید. Official Documentation
+
+نصب آلترناتیو امکان پذیر است و بدون نیاز به وابستگی‌های محلی می‌توانید با استفاده از Docker نصب کنید.
+
+کلون کردن مخزن
+
+    git clone git@github.com:ehsanSepahi/BookStore.git
+
+تغییر به پوشه مخزن
+
+    cd BookStore
+
+نصب تمامی وابستگی‌ها با استفاده از کامپوزر
+
+    composer install
+
+فایل env مثال را کپی کنید و تغییرات پیکربندی مورد نیاز را در فایل .env اعمال کنید
+
+    cp .env.example .env
+
+تولید کلید برنامه جدید
+
+    php artisan key:generate
+
+ویرایش فایل env
+
+    nano .env
+
+اجرای مهاجرت‌های پایگاه داده (قبل از اجرای مهاجرت‌ها اتصال به پایگاه داده را در .env تنظیم کنید)
+
+    php artisan migrate
+
+شروع سرور توسعه محلی
+
+    php artisan serve
+
+اکنون می‌توانید به سرور در آدرس http://localhost:8000 دسترسی پیدا کنید.
+
+در VPS اطمینان حاصل کنید که مورد زیر فعال شده است
+
+    sudo a2enmod rewrite
+    systemctl restart apache2
+
+لیست دستورات سریع و مختصر
+
+    git clone git@github.com:ehsanSepahi/BookStore.git
+    cd BookStore
+    composer install
+    cp .env.example .env
+    php artisan key:generate
+    nano .env
+
+اطمینان حاصل کنید که اطلاعات صحیح اتصال به پایگاه داده را قبل از اجرای مهاجرت‌ها تنظیم کرده‌اید Environment variables
+
+    php artisan migrate
+    php artisan serve
+
+## Docker
+برای نصب با استفاده از Docker، دستورات زیر را اجرا کنید:
+
+    git clone git@github.com:ehsanSepahi/BookStore.git
+    cd BookStore
+    cp .env.example.docker .env
+    docker run -v $(pwd):/app composer install
+    cd ./docker
+    docker-compose up -d
+    docker-compose exec php php artisan key:generate
+    docker-compose exec php php artisan migrate
+    docker-compose exec php php artisan serve --host=0.0.0.0
+
+به فروشگاه کتاب از آدرس http://localhost:8000 دسترسی خواهید داشت.
+
+## مشخصات فروشگاه کتاب
+در این راهنما به ساخت یک برنامه Laravel مدرن از ابتدا می‌پردازیم.
+شما می‌توانید وارد سیستم شوید و یک chirp ارسال کنید
+
+
+## پوشه‌ها
+app - حاوی تمام مدل‌های Eloquent
+config - حاوی تمام فایل‌های پیکربندی برنامه
+database/migrations - حاوی تمام مهاجرت‌های پایگاه داده
+routes - حاوی تمام مسیرهای api تعریف شده در فایل api.php
+tests - حاوی تمام تست‌های برنامه
+## متغیرهای محیطی
+.env - متغیرهای محیطی می‌توانند در این فایل تنظیم شوند
+توجه : شما می‌توانید سریعاً اطلاعات پایگاه داده و سایر متغیرها را در این فایل تنظیم کنید و برنامه به‌طور کامل کار کند.
+
+## آزمایش
+سرور توسعه لاراول را اجرا کنید
+
+    php artisan serve
+
+حالا API در دسترس است
+
+    http://localhost:8000
